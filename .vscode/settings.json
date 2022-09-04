@@ -1,4 +1,5 @@
 {
+    "json.maxItemsComputed": 50000,
     "editor.quickSuggestions": {
         "other": "on",
         "comments": true,

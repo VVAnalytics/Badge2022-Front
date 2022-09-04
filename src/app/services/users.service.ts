@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Users } from '../models/Users';
+import { Users } from '../Models/Users';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,15 +9,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UsersService {
 
-  private _url: string = environment.apiURL + "/Users/";
-  private _users!: Users[];
+  private _url : string = environment.apiURL + "/Users/";
+  private _users! : Users[];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http : HttpClient) { }
 
-  getUsers(): Observable<Users[]> {
+  getUsers() : Observable<Users[]> {
     return this._http.get<Users[]>(this._url);
   }
-  usersAuthenticate(user: Users): Observable<Users> {
+  usersAuthenticate(user : Users) : Observable<Users>{
     return this._http.post<Users>(this._url, user);
   }
 }

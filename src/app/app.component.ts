@@ -1,33 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import _storeService from './Services/_store.service';
+import { ModalService } from './_modal';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'angular-starter';
-  footerUrl = 'https://www.philippe-barat.be';
-  footerLink = 'www.philippe-barat.be';
+export class AppComponent {
+  title = 'GestPharma';
+  _storeService$ = _storeService.getInstance();
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: object) {
+  constructor(private modalService: ModalService,
+    private location: Location,
+    public route: Router) {
   }
-
-  ngOnInit(): void {
-
-    if (isPlatformBrowser(this.platformId)) {
-      const navMain = document.getElementById('navbarCollapse');
-      if (navMain) {
-        navMain.onclick = function onClick() {
-          if (navMain) {
-            navMain.classList.remove("show");
-          }
-        }
-      }
-    }
-  }
-
 }

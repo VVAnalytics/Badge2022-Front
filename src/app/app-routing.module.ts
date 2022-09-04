@@ -1,56 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { HomeComponent } from './modules/general/home/home.component';
-import { NotFoundComponent } from './modules/general/not-found/not-found.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { MedecinsComponent } from './medecins/medecins.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, },
-  {
-    path: 'formations',
-    loadChildren: () => import('./modules/application/formations/formations.module')
-      .then(mod => mod.FormationsModule)
-  },
-  {
-    path: 'news',
-    loadChildren: () => import('./modules/application/resultats/items.module')
-      .then(mod => mod.ItemsModule)
-  },
-    {
-    path: 'bootstrap',
-    loadChildren: () => import('./modules/application/cours/tutorial.module')
-      .then(mod => mod.TutorialModule)
-  },
-  {
-    path: 'signup',
-    loadChildren: () => import('./modules/general/signup/signup.module')
-      .then(mod => mod.SignupModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./modules/general/login/login.module')
-      .then(mod => mod.LoginModule)
-  },
-  {
-    path: 'contact',
-    loadChildren: () => import('./modules/general/contact/contact.module')
-      .then(mod => mod.ContactModule)
-  },
-  {
-    path: 'about',
-    loadChildren: () => import('./modules/general/about/about.module')
-      .then(mod => mod.AboutModule)
-  },
-  { path: '**', component: NotFoundComponent }
+      { path : "medecins", component : MedecinsComponent, loadChildren : () => import('./medecins/medecins.module').then(m => m.MedecinsModule)},
+      { path : 'notfound', component : NotfoundComponent},
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path : 'home', component : HomeComponent},
+      { path : "**", component : HomeComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  /*  imports: [RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
-      scrollPositionRestoration: 'enabled'
-    })],*/
-  exports: [RouterModule],
-  declarations: []
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
+ 
