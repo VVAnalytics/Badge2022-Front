@@ -17,7 +17,7 @@ export class HomeComponent {
 
     const content = '';
 
-    const title = 'ecole-starter Title : Home Page';
+    const title = 'angular-starter Title : Home Page';
 
   }
 

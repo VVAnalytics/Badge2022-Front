@@ -8,7 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'ecole-starter';
+  title = 'angular-starter';
   footerUrl = 'https://www.philippe-barat.be';
   footerLink = 'www.philippe-barat.be';
 

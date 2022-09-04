@@ -7,20 +7,8 @@ export const environment = {
     bootstrap: 'Bootstrap 5.2.0',
     fontawesome: 'Font Awesome 6.1.1',
   },
-  urlNews: './assets/params/json/mock/trailers.json',
-  /*   urlNews: 'http://localhost:5004/trailers', */
-
-  urlMovies: './assets/params/json/mock/movies.json',
-  // url: 'https://api.ganatan.com/tutorials',
-  config: {
-    /* SELECT ONE OF THOSE CONFIGURATIONS */
-
-    /* LOCAL JSON (NO CRUD) */
-    api: false,
-    url: './assets/params/json/crud/',
-
-    /* LOCAL REST API CRUD WITH POSTGRESQL */
-    /* api: true,
-    url: 'http://localhost:5004/', */
-  },
+  apiURL: 'https://localhost:44383/api',
+  apiURLIIS: 'http://localhost/api',
+  apiURLIISExpress: 'https://localhost:44307/api',
+  apiURLIISExpressTF: 'https://localhost:44383/api'
 };
