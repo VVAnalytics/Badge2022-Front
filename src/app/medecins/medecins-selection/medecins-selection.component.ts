@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { ModalService } from '../../_modal';
-import   _storeService  from '../../Services/_store.service';
+import _storeService from '../../Services/_store.service';
 import { MedecinsService } from 'src/app/Services/medecins.service';
 import { IMedecins } from 'src/app/Models/IMedecins';
 import { BehaviorSubject, map, Observable } from 'rxjs';
@@ -21,7 +21,7 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
   title = 'GestPharmaFR';
   windowScrolled: boolean | undefined;
   dataSource = new MatTableDataSource<IMedecins>();
-  displayedFields: string[] = ['Nom du médecin', 'N° INAMI', 'Ville', 'Telephone', 'Gsm', 'Email', 'Details', 'Update', 'Delete'];   // ,'medecinRue','medecinFax'
+  displayedFields: string[] = ['Nom', 'Prénom', 'Rue', 'Code postal', 'Ville', 'Email', 'Details', 'Update', 'Delete'];   // ,'medecinRue','medecinFax'
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -32,8 +32,8 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
     private route: Router,
   ) {
     this._storeService$.displayedColumns$ = new BehaviorSubject<string[]>(
-      ['medecinName', 'medecinInami', 'medecinVille',
-        'medecinTelephone', 'medecinGsm', 'medecinEmail',
+      ['unom', 'uprenom', 'urue',
+        'ucodep', 'uville', 'Email',
         'details', 'update', 'delete']);   // ,'medecinRue','medecinFax'
     this._storeService$.dataSourceO$ = new Observable<MatTableDataSource<IMedecins>>();
   }
@@ -119,27 +119,27 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(false);
-          this.route.navigateByUrl('/medecins/edition/'+id);
+          this.route.navigateByUrl('/medecins/edition/' + id);
         }
       });
-   }
+  }
   redirectToDelete = (id: string) => {
     this._storeService$.dataSourceO$.subscribe(
       {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(true);
-          this.route.navigateByUrl('/medecins/edition/'+id);
+          this.route.navigateByUrl('/medecins/edition/' + id);
         }
       });
-   }
+  }
   redirectToDetails = (id: string) => {
     this._storeService$.dataSourceO$.subscribe(
       {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(true);
-          this.route.navigateByUrl('/medecins/edition/'+id);
+          this.route.navigateByUrl('/medecins/edition/' + id);
         }
       });
   }

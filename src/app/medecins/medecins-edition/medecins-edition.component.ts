@@ -34,7 +34,8 @@ export class MedecinsEditionComponent implements OnInit {
   title = 'GestPharmaFR';
   windowScrolled: boolean | undefined;
   dataSource = new MatTableDataSource<IMedecins>();
-  displayedFields: string[] = ['Nom du médecin', 'N° INAMI', 'Ville', 'Telephone', 'Gsm', 'Email', 'Details', 'Update', 'Delete'];   // ,'medecinRue','medecinFax'
+  displayedFields: string[] = ['Nom', 'Prénom', 'Rue', 'Code postal', 'Ville', 'Email', 'Details', 'Update', 'Delete'];   // ,'medecinRue','medecinFax'
+
   medecinsId: number = 0;
   medecins: Medecins = new Medecins;
 
@@ -50,8 +51,8 @@ export class MedecinsEditionComponent implements OnInit {
     private route: Router,
   ) {
     this._storeService$.displayedColumns$ = new BehaviorSubject<string[]>(
-      ['medecinName', 'medecinInami', 'medecinVille',
-        'medecinTelephone', 'medecinGsm', 'medecinEmail',
+      ['unom', 'uprenom', 'urue',
+        'ucodep', 'uville', 'Email',
         'details', 'update', 'delete']);   // ,'medecinRue','medecinFax'
     this._storeService$.dataSourceO$ = new Observable<MatTableDataSource<IMedecins>>();
     this.inputIsCreation = (this._storeService$.inputIsCreation.value == true) ? true : false;
@@ -82,14 +83,12 @@ export class MedecinsEditionComponent implements OnInit {
     if (!this.inputIsCreation) {
       this._medecinsService.getMedecinsById(this.medecinsId).subscribe(x => {
         const mdc = x[0] as IMedecins;
-        this.formGroup.controls['MedecinName'].setValue(mdc.medecinName);
-        this.formGroup.controls['MedecinInami'].setValue(mdc.medecinInami);
-        this.formGroup.controls['MedecinRue'].setValue(mdc.medecinRue);
-        this.formGroup.controls['MedecinVille'].setValue(mdc.medecinVille);
-        this.formGroup.controls['MedecinTelephone'].setValue(mdc.medecinTelephone);
-        this.formGroup.controls['MedecinGsm'].setValue(mdc.medecinGsm);
-        this.formGroup.controls['MedecinFax'].setValue(mdc.medecinFax);
-        this.formGroup.controls['MedecinEmail'].setValue(mdc.medecinEmail);
+        this.formGroup.controls['uprenom'].setValue(mdc.unom);
+        this.formGroup.controls['uprenom'].setValue(mdc.uprenom);
+        this.formGroup.controls['urue'].setValue(mdc.urue);
+        this.formGroup.controls['ucodep'].setValue(mdc.ucodep);
+        this.formGroup.controls['uville'].setValue(mdc.uville);
+        this.formGroup.controls['Email'].setValue(mdc.Email);
       }
       )
     }
@@ -106,64 +105,51 @@ export class MedecinsEditionComponent implements OnInit {
     let emailregex: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
     this._storeService$.medecinCreationFG$ = this.formBuilder.group({
-      'MedecinName': [null, [Validators.required,
+      'unom': [null, [Validators.required,
       Validators.minLength(5), Validators.maxLength(255),
       Validators.pattern(nameregex)], [this.checkInUseName()]],
 
-      'MedecinInami': [null, [Validators.required,
+      'uprenom': [null, [Validators.required,
       Validators.minLength(5), Validators.maxLength(255),
       Validators.pattern(inamiregex)], [this.checkInUseINAMI()]],
 
-      'MedecinRue': [null, [Validators.required,
+      'urue': [null, [Validators.required,
       Validators.minLength(5), Validators.maxLength(255),
       Validators.pattern(rueregex)], [this.checkInUseRue()]],
 
-      'MedecinVille': [null, [Validators.required,
+      'ucodep': [null, [Validators.required,
       Validators.minLength(5), Validators.maxLength(255),
       Validators.pattern(villeregex)], [this.checkInUseVille()]],
 
-      'MedecinTelephone': [null, [Validators.required,
+      'uville': [null, [Validators.required,
       Validators.minLength(10), Validators.maxLength(12),
       Validators.pattern(telregex)], [this.checkInUseTel()]],
 
-      'MedecinGsm': [null, [Validators.required,
+      'Email': [null, [Validators.required,
       Validators.minLength(10), Validators.maxLength(10),
       Validators.pattern(gsmregex)], [this.checkInUseGsm()]],
-
-      'MedecinFax': [null, [Validators.required,
-      Validators.minLength(10), Validators.maxLength(12),
-      Validators.pattern(faxregex)], [this.checkInUseFax()]],
-
-      'MedecinEmail': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(emailregex)], [this.checkInUseEmail()]],
     });
   }
 
-  get medecinName() {
-    return this.formGroup.get('MedecinName') as FormControl
+  get unom() {
+    return this.formGroup.get('unom') as FormControl
   }
-  get medecinInami() {
-    return this.formGroup.get('MedecinInami') as FormControl
+  get uprenom() {
+    return this.formGroup.get('uprenom') as FormControl
   }
-  get medecinRue() {
-    return this.formGroup.get('MedecinRue') as FormControl
+  get urue() {
+    return this.formGroup.get('urue') as FormControl
   }
-  get medecinVille() {
-    return this.formGroup.get('MedecinVille') as FormControl
+  get ucodep() {
+    return this.formGroup.get('ucodep') as FormControl
   }
-  get medecinTelephone() {
-    return this.formGroup.get('MedecinTelephone') as FormControl
+  get uville() {
+    return this.formGroup.get('uville') as FormControl
   }
-  get medecinGsm() {
-    return this.formGroup.get('MedecinGsm') as FormControl
+  get Email() {
+    return this.formGroup.get('Email') as FormControl
   }
-  get medecinFax() {
-    return this.formGroup.get('MedecinFax') as FormControl
-  }
-  get medecinEmail() {
-    return this.formGroup.get('MedecinEmail') as FormControl
-  }
+
 
   checkInUseName(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
@@ -261,58 +247,48 @@ export class MedecinsEditionComponent implements OnInit {
   }
 
   getErrorMedecinName() {
-    return this.formGroup!.get('MedecinName')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinName')!.hasError('pattern') ? 'Not a valid NAME' :
-        this.formGroup!.get('MedecinName')!.hasError('alreadyInUse') ? 'This NAME is already in use' : '';
+    return this.formGroup!.get('unom')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('unom')!.hasError('pattern') ? 'Not a valid NAME' :
+        this.formGroup!.get('unom')!.hasError('alreadyInUse') ? 'This NAME is already in use' : '';
   }
   getErrorMedecinInami() {
-    return this.formGroup!.get('MedecinInami')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinInami')!.hasError('pattern') ? 'Not a valid INAMI number' :
-        this.formGroup!.get('MedecinInami')!.hasError('alreadyInUse') ? 'This INAMI number is already in use' : '';
+    return this.formGroup!.get('uprenom')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('uprenom')!.hasError('pattern') ? 'Not a valid INAMI number' :
+        this.formGroup!.get('uprenom')!.hasError('alreadyInUse') ? 'This INAMI number is already in use' : '';
   }
   getErrorMedecinRue() {
-    return this.formGroup!.get('MedecinRue')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinRue')!.hasError('pattern') ? 'Not a valid street' :
-        this.formGroup!.get('MedecinRue')!.hasError('alreadyInUse') ? 'This street is already in use' : '';
+    return this.formGroup!.get('urue')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('urue')!.hasError('pattern') ? 'Not a valid street' :
+        this.formGroup!.get('urue')!.hasError('alreadyInUse') ? 'This street is already in use' : '';
   }
   getErrorMedecinVille() {
-    return this.formGroup!.get('MedecinVille')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinVille')!.hasError('pattern') ? 'Not a valid town' :
-        this.formGroup!.get('MedecinVille')!.hasError('alreadyInUse') ? 'This town is already in use' : '';
+    return this.formGroup!.get('ucodep')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('ucodep')!.hasError('pattern') ? 'Not a valid town' :
+        this.formGroup!.get('ucodep')!.hasError('alreadyInUse') ? 'This town is already in use' : '';
   }
   getErrorMedecinTelephone() {
-    return this.formGroup!.get('MedecinTelephone')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinTelephone')!.hasError('pattern') ? 'Not a valid phone' :
-        this.formGroup!.get('MedecinTelephone')!.hasError('alreadyInUse') ? 'This phone is already in use' : '';
+    return this.formGroup!.get('uville')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('uville')!.hasError('pattern') ? 'Not a valid phone' :
+        this.formGroup!.get('uville')!.hasError('alreadyInUse') ? 'This phone is already in use' : '';
   }
   getErrorMedecinGsm() {
-    return this.formGroup!.get('MedecinGsm')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinGsm')!.hasError('pattern') ? 'Not a valid GSM' :
-        this.formGroup!.get('MedecinGsm')!.hasError('alreadyInUse') ? 'This GSM is already in use' : '';
+    return this.formGroup!.get('Email')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('Email')!.hasError('pattern') ? 'Not a valid GSM' :
+        this.formGroup!.get('Email')!.hasError('alreadyInUse') ? 'This GSM is already in use' : '';
   }
-  getErrorMedecinFax() {
-    return this.formGroup!.get('MedecinFax')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinFax')!.hasError('pattern') ? 'Not a valid FAX' :
-        this.formGroup!.get('MedecinFax')!.hasError('alreadyInUse') ? 'This FAX is already in use' : '';
-  }
-  getErrorMedecinEmail() {
-    return this.formGroup!.get('MedecinEmail')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('MedecinEmail')!.hasError('pattern') ? 'Not a valid emailaddress' :
-        this.formGroup!.get('MedecinEmail')!.hasError('alreadyInUse') ? 'This emailaddress is already in use' : '';
-  }
+
 
   onSubmit(post: any) {
     this.post = post;
     let formData: Medecins = new Medecins;
-    formData.MedecinId = 0;
-    formData.MedecinName = this.medecinName.value;
-    formData.MedecinInami = this.medecinInami.value;
-    formData.MedecinRue = this.medecinRue.value;
-    formData.MedecinVille = this.medecinVille.value;
-    formData.MedecinTelephone = this.medecinTelephone.value;
-    formData.MedecinGsm = this.medecinGsm.value;
-    formData.MedecinFax = this.medecinFax.value;
-    formData.MedecinEmail = this.medecinEmail.value;
+    //formData.MedecinId = 0;
+    formData.unom = this.unom.value;
+    formData.uprenom = this.uprenom.value;
+    formData.urue = this.urue.value;
+    formData.ucodep = this.ucodep.value;
+    formData.uville = this.uville.value;
+    formData.Email = this.Email.value;
+
     this._medecinsService.addMedecins(formData).subscribe(r => { });
     this._storeService$.dataSourceO$ =
       this._medecinsService.getMedecins().pipe(
@@ -332,12 +308,12 @@ export class MedecinsEditionComponent implements OnInit {
     this._storeService$.inputIsReadOnly.next(true);
     this._medecinsService.deleteMedecins(this.medecinsId).subscribe(x => {
       this._storeService$.dataSourceO$ =
-      this._medecinsService.getMedecins().pipe(
-        map(things => {
-          const dataSource = new MatTableDataSource<IMedecins>();
-          dataSource.data = things;
-          return dataSource;
-        }));
+        this._medecinsService.getMedecins().pipe(
+          map(things => {
+            const dataSource = new MatTableDataSource<IMedecins>();
+            dataSource.data = things;
+            return dataSource;
+          }));
       this.route.navigateByUrl('medecins/selection');
     });
   }

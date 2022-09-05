@@ -3,70 +3,51 @@
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
 
       <mat-form-field class="form-element">
-        <input matInput placeholder="Nom & prénom du médecin" formControlName="MedecinName" [readonly]="inputIsReadOnly"
+        <input matInput placeholder="Nom & prénom du médecin" formControlName="unom" [readonly]="inputIsReadOnly"
           (keydown.Shift.Tab)="onKey($event);false">
         <mat-hint>Choose firstname AND lastname of at least eight characters.[-- --]</mat-hint>
-        <mat-error *ngIf="!formGroup.controls['MedecinName'].valid && formGroup.controls['MedecinName'].touched">
+        <mat-error *ngIf="!formGroup.controls['unom'].valid && formGroup.controls['unom'].touched">
           {{ getErrorMedecinName() }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-element">
-        <input matInput placeholder="Numéro INAMI" formControlName="MedecinInami" [readonly]="inputIsReadOnly">
+        <input matInput placeholder="Numéro INAMI" formControlName="uprenom" [readonly]="inputIsReadOnly">
         <mat-hint>Indicate INAMI number of exactly eight characters.[------]</mat-hint>
-        <mat-error *ngIf="!formGroup.controls['MedecinInami'].valid && formGroup.controls['MedecinInami'].touched">
+        <mat-error *ngIf="!formGroup.controls['uprenom'].valid && formGroup.controls['uprenom'].touched">
           {{ getErrorMedecinInami() }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-element">
-        <input matInput placeholder="Rue" formControlName="MedecinRue" [readonly]="inputIsReadOnly">
+        <input matInput placeholder="Rue" formControlName="urue" [readonly]="inputIsReadOnly">
         <mat-hint>Indicate the street of at least eight characters.</mat-hint>
-        <mat-error *ngIf="!formGroup.controls['MedecinRue'].valid && formGroup.controls['MedecinRue'].touched">
+        <mat-error *ngIf="!formGroup.controls['urue'].valid && formGroup.controls['urue'].touched">
           {{ getErrorMedecinRue() }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-element">
-        <input matInput placeholder="Ville" formControlName="MedecinVille" [readonly]="inputIsReadOnly">
+        <input matInput placeholder="Ville" formControlName="ucodep" [readonly]="inputIsReadOnly">
         <mat-hint>Indicate the town of at least eight characters.</mat-hint>
-        <mat-error *ngIf="!formGroup.controls['MedecinVille'].valid && formGroup.controls['MedecinVille'].touched">
+        <mat-error *ngIf="!formGroup.controls['ucodep'].valid && formGroup.controls['ucodep'].touched">
           {{ getErrorMedecinVille() }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-element">
-        <input matInput placeholder="Numéro de téléphone FIXE" formControlName="MedecinTelephone"
-          [readonly]="inputIsReadOnly">
+        <input matInput placeholder="Numéro de téléphone FIXE" formControlName="uville" [readonly]="inputIsReadOnly">
         <mat-hint>Indicate phone number with exactly ten number or twelwe. [--- -- -- -- --]</mat-hint>
-        <mat-error
-          *ngIf="!formGroup.controls['MedecinTelephone'].valid && formGroup.controls['MedecinTelephone'].touched">
+        <mat-error *ngIf="!formGroup.controls['uville'].valid && formGroup.controls['uville'].touched">
           {{ getErrorMedecinTelephone() }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form-element">
-        <input matInput placeholder="Numéro de téléphone GSM" formControlName="MedecinGsm" [readonly]="inputIsReadOnly">
+        <input matInput placeholder="Numéro de téléphone GSM" formControlName="Email" [readonly]="inputIsReadOnly">
         <mat-hint>Indicate phone number with exactly ten number. [-----------]</mat-hint>
-        <mat-error *ngIf="!formGroup.controls['MedecinGsm'].valid && formGroup.controls['MedecinGsm'].touched">
+        <mat-error *ngIf="!formGroup.controls['Email'].valid && formGroup.controls['Email'].touched">
           {{ getErrorMedecinGsm() }}
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="form-element">
-        <input matInput placeholder="Numéro de FAX" formControlName="MedecinFax" [readonly]="inputIsReadOnly">
-        <mat-hint>Indicate phone number with exactly ten number or twelwe. [--- -- -- -- --]</mat-hint>
-        <mat-error *ngIf="!formGroup.controls['MedecinFax'].valid && formGroup.controls['MedecinFax'].touched">
-          {{ getErrorMedecinFax() }}
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="form-element">
-        <input matInput placeholder="Email du médecin" formControlName="MedecinEmail" [readonly]="inputIsReadOnly"
-          (keydown.Tab)="onKey($event);false">
-        <mat-hint>Indicate email adresss of doctor. [--@--.--]</mat-hint>
-        <mat-error *ngIf="!formGroup.controls['MedecinEmail'].valid && formGroup.controls['MedecinEmail'].touched">
-          {{ getErrorMedecinEmail() }}
         </mat-error>
       </mat-form-field>
 
@@ -81,7 +62,7 @@
         <button mat-raised-button color="primary" class="button3" (click)="deleteMedecin()">
           <a mat-fab>Suppr</a>
         </button>
-        <button  mat-raised-button color="primary" class="button3" (onclick)="editMedecin()">
+        <button mat-raised-button color="primary" class="button3" (onclick)="editMedecin()">
           <a mat-fab>Edit</a>
         </button>
         <button mat-raised-button color="primary" class="button3">

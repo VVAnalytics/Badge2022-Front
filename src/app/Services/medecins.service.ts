@@ -12,32 +12,32 @@ import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 })
 export class MedecinsService {
 
-  private _medecins! : Medecins[];
+  private _medecins!: Medecins[];
   tokens = TkStorage.getInstance();
-  private _url : string = environment.apiURL + "/Medecins/";
+  private _url: string = environment.apiURL + "/Personnes/";
 
-  constructor(private _http : HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  getMedecins() : Observable<IMedecins[]> {
-    const myheaders = new HttpHeaders({ 'Authorization' : 'Bearer ' + this.tokens.getAccessToken() });
-    return this._http.get<IMedecins[]>(this._url+"GetAll", { headers : myheaders});
+  getMedecins(): Observable<IMedecins[]> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken() });
+    return this._http.get<IMedecins[]>(this._url + "GetAll", { headers: myheaders });
   }
-  getMedecinsById(id : number) : Observable<any> {
-    const myheaders = new HttpHeaders({ 'Authorization' : 'Bearer ' + this.tokens.getAccessToken() });
-    return this._http.get<Medecins[]>(this._url+"GetOne/"+id, { headers : myheaders});
+  getMedecinsById(id: number): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken() });
+    return this._http.get<Medecins[]>(this._url + "GetOne/" + id, { headers: myheaders });
   }
-  addMedecins(medecins : Medecins) : Observable<any>{
-    const myheaders = new HttpHeaders({ 'Authorization' : 'Bearer ' + this.tokens.getAccessToken() , 'Content-Type':'application/json'});
+  addMedecins(medecins: Medecins): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json' });
     const mybody = JSON.stringify(medecins);
-    return this._http.post<Medecins[]>(this._url +"create", mybody, { headers : myheaders});
+    return this._http.post<Medecins[]>(this._url + "create", mybody, { headers: myheaders });
   }
-  editMedecins(id : number, medecins : Medecins) : Observable<any>{
-    const myheaders = new HttpHeaders({ 'Authorization' : 'Bearer ' + this.tokens.getAccessToken() , 'Content-Type':'application/json'});
+  editMedecins(id: number, medecins: Medecins): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json' });
     const mybody = JSON.stringify(medecins);
-    return this._http.put<Medecins[]>(this._url+medecins.MedecinId, mybody, { headers : myheaders});
+    return this._http.put<Medecins[]>(this._url + medecins.Email, mybody, { headers: myheaders });
   }
-  deleteMedecins(id : number) : Observable<any>{ 
-    const myheaders = new HttpHeaders({ 'Authorization' : 'Bearer ' + this.tokens.getAccessToken() , 'Content-Type':'application/json'});
-    return this._http.delete<Medecins[]>(this._url+"Delete/"+id, { headers : myheaders});
+  deleteMedecins(id: number): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json' });
+    return this._http.delete<Medecins[]>(this._url + "Delete/" + id, { headers: myheaders });
   }
 }
