@@ -33,7 +33,7 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
   ) {
     this._storeService$.displayedColumns$ = new BehaviorSubject<string[]>(
       ['unom', 'uprenom', 'urue',
-        'ucodep', 'uville', 'Email',
+        'ucodep', 'uville', 'email',
         'details', 'update', 'delete']);   // ,'medecinRue','medecinFax'
     this._storeService$.dataSourceO$ = new Observable<MatTableDataSource<IMedecins>>();
   }
@@ -109,7 +109,7 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
     this._storeService$.dataSourceO$.subscribe(
       {
         next: (data: any) => {
-          this.route.navigateByUrl('/medecins/creation');
+          this.route.navigateByUrl('/personnes/creation');
         }
       });
   }
@@ -119,7 +119,7 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(false);
-          this.route.navigateByUrl('/medecins/edition/' + id);
+          this.route.navigateByUrl('/personnes/edition/' + id);
         }
       });
   }
@@ -129,7 +129,7 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(true);
-          this.route.navigateByUrl('/medecins/edition/' + id);
+          this.route.navigateByUrl('/personnes/edition/' + id);
         }
       });
   }
@@ -139,7 +139,7 @@ export class MedecinsSelectionComponent implements OnInit, AfterViewInit {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(true);
-          this.route.navigateByUrl('/medecins/edition/' + id);
+          this.route.navigateByUrl('/personnes/edition/' + id);
         }
       });
   }

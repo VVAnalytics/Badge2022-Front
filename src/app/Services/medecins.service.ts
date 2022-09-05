@@ -24,7 +24,7 @@ export class MedecinsService {
   }
   getMedecinsById(id: number): Observable<any> {
     const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken() });
-    return this._http.get<Medecins[]>(this._url + "GetOne/" + id, { headers: myheaders });
+    return this._http.get<Medecins[]>(this._url + "GetOne?id=" + id, { headers: myheaders });
   }
   addMedecins(medecins: Medecins): Observable<any> {
     const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json' });
@@ -34,10 +34,10 @@ export class MedecinsService {
   editMedecins(id: number, medecins: Medecins): Observable<any> {
     const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json' });
     const mybody = JSON.stringify(medecins);
-    return this._http.put<Medecins[]>(this._url + medecins.Email, mybody, { headers: myheaders });
+    return this._http.put<Medecins[]>(this._url + medecins.email, mybody, { headers: myheaders });
   }
   deleteMedecins(id: number): Observable<any> {
     const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json' });
-    return this._http.delete<Medecins[]>(this._url + "Delete/" + id, { headers: myheaders });
+    return this._http.delete<Medecins[]>(this._url + "Delete?id=" + id, { headers: myheaders });
   }
 }

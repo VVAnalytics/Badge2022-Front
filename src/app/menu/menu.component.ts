@@ -51,11 +51,11 @@ export class MenuComponent implements OnInit {
         next: (data: any) => {
           switch (this._storeService$.rolesOfPersonneLogged$.value) {
             case "Admin": {
-              this._storeService$.menuOption1$.next("");
+              this._storeService$.menuOption1$.next("Personnes");
               this._storeService$.menuOption2$.next("Formations");
               this._storeService$.menuOption3$.next("Cours");
               this._storeService$.menuOption4$.next("Notes");
-              this._storeService$.menuOption5$.next("Elèves");
+              this._storeService$.menuOption5$.next("");
               this._storeService$.menuOption6$.next("Roles");
               this._storeService$.menuOption7$.next("");
               this._storeService$.menuOption8$.next("");
@@ -76,7 +76,7 @@ export class MenuComponent implements OnInit {
               this.cheminImage = "/assets/images/_patient.jpg";
               break;
             }
-            case "Elèves": {
+            case "Eleves": {
               this._storeService$.menuOption1$.next("");
               this._storeService$.menuOption2$.next("");
               this._storeService$.menuOption3$.next("");
@@ -113,10 +113,10 @@ export class MenuComponent implements OnInit {
 
         break;
       }
-      case "Patient": {
+      case "Eleves": {
         break;
       }
-      case "Praticien": {
+      case "Professeurs": {
         break;
       }
       default: {
@@ -131,10 +131,10 @@ export class MenuComponent implements OnInit {
       case "Admin": {
         break;
       }
-      case "Patient": {
+      case "Eleves": {
         break;
       }
-      case "Praticien": {
+      case "Professeurs": {
         break;
       }
       default: {

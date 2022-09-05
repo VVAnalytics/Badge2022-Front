@@ -42,7 +42,7 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
   ) {
     this._storeService$.displayedColumns$ = new BehaviorSubject<string[]>(
       ['unom', 'uprenom', 'urue',
-        'ucodep', 'uville', 'Email',
+        'ucodep', 'uville', 'email',
         'details', 'update', 'delete']);   // ,'medecinRue','medecinFax'
     this._storeService$.dataSourceO$ = new Observable<MatTableDataSource<IMedecins>>();
   }
@@ -72,39 +72,37 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
   }
 
   createForm() {
-    let nameregex: RegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-    let inamiregex: RegExp = /^[0-9]{6,6}$/;
-    let rueregex: RegExp = /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-    let villeregex: RegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-    let telregex: RegExp = /^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    let gsmregex: RegExp = /^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    let faxregex: RegExp = /^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    let emailregex: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    let nameregex: RegExp = /[A-Za-z0-9]/;
+    let inamiregex: RegExp = /[A-Za-z0-9]/;
+    let rueregex: RegExp = /[A-Za-z0-9]/;
+    let villeregex: RegExp = /[0-9]{4,4}/;
+    let telregex: RegExp = /[A-Za-z0-9]/;
+    let gsmregex: RegExp = /^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/;
 
     this._storeService$.medecinCreationFG$ = this.formBuilder.group({
       'unom': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(nameregex)], [this.checkInUseName()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(nameregex)]],
 
       'uprenom': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(inamiregex)], [this.checkInUseINAMI()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(inamiregex)]],
 
       'urue': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(rueregex)], [this.checkInUseRue()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(rueregex)]],
 
       'ucodep': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(villeregex)], [this.checkInUseVille()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(villeregex)]],
 
       'uville': [null, [Validators.required,
-      Validators.minLength(10), Validators.maxLength(12),
-      Validators.pattern(telregex)], [this.checkInUseTel()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(telregex)]],
 
-      'Email': [null, [Validators.required,
-      Validators.minLength(10), Validators.maxLength(10),
-      Validators.pattern(gsmregex)], [this.checkInUseGsm()]],
+      'email': [null, [Validators.required,
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(gsmregex)]],
 
     });
   }
@@ -124,97 +122,8 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
   get uville() {
     return this.formGroup.get('uville') as FormControl
   }
-  get Email() {
-    return this.formGroup.get('Email') as FormControl
-  }
-
-  checkInUseName(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleUpperCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseINAMI(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          let checkInami: number = this.dataSource.filteredData.length;
-          if (Number(control.value) % 97 != 0) {
-            if (Number(control.value) % 89 != 0) {
-              if (Number(control.value) % 83 != 0) {
-                checkInami = Number(control.value) % 74
-              }
-            }
-          }
-          return (checkInami = 0) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseRue(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleUpperCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseVille(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0) ? { 'alreadyInUse': null } : null;
-        }));
-    }
-  }
-  checkInUseTel(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseGsm(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseFax(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseEmail(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0) ? { 'alreadyInUse': true } : null;
-        }));
-    }
+  get email() {
+    return this.formGroup.get('email') as FormControl
   }
 
   getErrorMedecinName() {
@@ -243,21 +152,21 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
         this.formGroup!.get('uville')!.hasError('alreadyInUse') ? 'This phone is already in use' : '';
   }
   getErrorMedecinGsm() {
-    return this.formGroup!.get('Email')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('Email')!.hasError('pattern') ? 'Not a valid GSM' :
-        this.formGroup!.get('Email')!.hasError('alreadyInUse') ? 'This GSM is already in use' : '';
+    return this.formGroup!.get('email')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('email')!.hasError('pattern') ? 'Not a valid GSM' :
+        this.formGroup!.get('email')!.hasError('alreadyInUse') ? 'This GSM is already in use' : '';
   }
 
   onSubmit(post: any) {
     this.post = post;
     let formData: Medecins = new Medecins;
-    //formData.MedecinId = 0;
+    formData.id = "";
     formData.unom = this.unom.value;
     formData.uprenom = this.uprenom.value;
     formData.urue = this.urue.value;
     formData.ucodep = this.ucodep.value;
     formData.uville = this.uville.value;
-    formData.Email = this.Email.value;
+    formData.email = this.email.value;
     this._medecinsService.addMedecins(formData).subscribe(r => { });
     this._storeService$.dataSourceO$ =
       this._medecinsService.getMedecins().pipe(
@@ -266,7 +175,7 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
           dataSource.data = things;
           return dataSource;
         }));
-    this.route.navigateByUrl('medecins/selection');
+    this.route.navigateByUrl('personnes/selection');
   }
   onKey(event: any) { this.document.body.tabIndex = 0; }
 }

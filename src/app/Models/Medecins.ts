@@ -1,10 +1,24 @@
 export class Medecins {
     unom!: string;
     uprenom!: string;
-    Email!: string;
-    DateTime!: string;
+    email!: string;
+    dateTime!: string;
     urue!: string;
     ucodep!: string;
     uville!: string;
     upays!: string;
+    id!: string;
+    userName!: string;
+    normalizedUserName!: string;
+    normalizedEmail!: string;
+    emailConfirmed!: boolean;
+    passwordHash!: string;
+    securityStamp!: string;
+    concurrencyStamp!: string;
+    phoneNumber!: string;
+    phoneNumberConfirmed!: boolean;
+    twoFactorEnabled!: boolean;
+    lockoutEnd!: string;
+    lockoutEnabled!: boolean;
+    accessFailedCount!: number;
 }

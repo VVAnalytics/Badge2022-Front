@@ -36,7 +36,7 @@ export class MedecinsEditionComponent implements OnInit {
   dataSource = new MatTableDataSource<IMedecins>();
   displayedFields: string[] = ['Nom', 'Prénom', 'Rue', 'Code postal', 'Ville', 'Email', 'Details', 'Update', 'Delete'];   // ,'medecinRue','medecinFax'
 
-  medecinsId: number = 0;
+  Id: number = 0;
   medecins: Medecins = new Medecins;
 
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -52,12 +52,12 @@ export class MedecinsEditionComponent implements OnInit {
   ) {
     this._storeService$.displayedColumns$ = new BehaviorSubject<string[]>(
       ['unom', 'uprenom', 'urue',
-        'ucodep', 'uville', 'Email',
+        'ucodep', 'uville', 'email',
         'details', 'update', 'delete']);   // ,'medecinRue','medecinFax'
     this._storeService$.dataSourceO$ = new Observable<MatTableDataSource<IMedecins>>();
     this.inputIsCreation = (this._storeService$.inputIsCreation.value == true) ? true : false;
     this.inputIsReadOnly = (this._storeService$.inputIsReadOnly.value == true) ? true : false;
-    this.medecinsId = Number(this._activatedRoute.snapshot.params['id']);
+    this.Id = Number(this._activatedRoute.snapshot.params['id']);
   }
 
   @HostListener("window:scroll", [])
@@ -81,53 +81,51 @@ export class MedecinsEditionComponent implements OnInit {
     this.createForm();
     this.formGroup = this._storeService$.medecinCreationFG$;
     if (!this.inputIsCreation) {
-      this._medecinsService.getMedecinsById(this.medecinsId).subscribe(x => {
+      this._medecinsService.getMedecinsById(this.Id).subscribe(x => {
         const mdc = x[0] as IMedecins;
-        this.formGroup.controls['uprenom'].setValue(mdc.unom);
+        this.formGroup.controls['unom'].setValue(mdc.unom);
         this.formGroup.controls['uprenom'].setValue(mdc.uprenom);
         this.formGroup.controls['urue'].setValue(mdc.urue);
         this.formGroup.controls['ucodep'].setValue(mdc.ucodep);
         this.formGroup.controls['uville'].setValue(mdc.uville);
-        this.formGroup.controls['Email'].setValue(mdc.Email);
+        this.formGroup.controls['email'].setValue(mdc.email);
       }
       )
     }
   }
 
   createForm() {
-    let nameregex: RegExp = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-    let inamiregex: RegExp = /^[0-9]{6,6}$/;
-    let rueregex: RegExp = /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-    let villeregex: RegExp = /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/;
-    let telregex: RegExp = /^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    let gsmregex: RegExp = /^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    let faxregex: RegExp = /^[\+]?[(]?[0-9]{3,4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    let emailregex: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    let nameregex: RegExp = /[A-Za-z0-9]/;
+    let inamiregex: RegExp = /[A-Za-z0-9]/;
+    let rueregex: RegExp = /[A-Za-z0-9]/;
+    let villeregex: RegExp = /[0-9]{4,4}/;
+    let telregex: RegExp = /[A-Za-z0-9]/;
+    let gsmregex: RegExp = /^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/;
 
     this._storeService$.medecinCreationFG$ = this.formBuilder.group({
       'unom': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(nameregex)], [this.checkInUseName()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(nameregex)]],
 
       'uprenom': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(inamiregex)], [this.checkInUseINAMI()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(inamiregex)]],
 
       'urue': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(rueregex)], [this.checkInUseRue()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(rueregex)]],
 
       'ucodep': [null, [Validators.required,
-      Validators.minLength(5), Validators.maxLength(255),
-      Validators.pattern(villeregex)], [this.checkInUseVille()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(villeregex)]],
 
       'uville': [null, [Validators.required,
-      Validators.minLength(10), Validators.maxLength(12),
-      Validators.pattern(telregex)], [this.checkInUseTel()]],
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(telregex)]],
 
-      'Email': [null, [Validators.required,
-      Validators.minLength(10), Validators.maxLength(10),
-      Validators.pattern(gsmregex)], [this.checkInUseGsm()]],
+      'email': [null, [Validators.required,
+      Validators.minLength(2), Validators.maxLength(255),
+      Validators.pattern(gsmregex)]],
     });
   }
 
@@ -146,105 +144,11 @@ export class MedecinsEditionComponent implements OnInit {
   get uville() {
     return this.formGroup.get('uville') as FormControl
   }
-  get Email() {
-    return this.formGroup.get('Email') as FormControl
+  get email() {
+    return this.formGroup.get('email') as FormControl
   }
 
 
-  checkInUseName(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleUpperCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0 &&
-            this.inputIsReadOnly == true) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseINAMI(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          let checkInami: number = this.dataSource.filteredData.length;
-          if (Number(control.value) % 97 != 0) {
-            if (Number(control.value) % 89 != 0) {
-              if (Number(control.value) % 83 != 0) {
-                checkInami = Number(control.value) % 74
-              }
-            }
-          }
-          return (checkInami = 0 &&
-            this.inputIsReadOnly == true) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseRue(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleUpperCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0 && this.inputIsReadOnly == true) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseVille(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0 && this.inputIsReadOnly == true) ? { 'alreadyInUse': null } : null;
-        }));
-    }
-  }
-  checkInUseTel(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0 &&
-            this.inputIsReadOnly == true) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseGsm(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0 &&
-            this.inputIsReadOnly == true) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseFax(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0 &&
-            this.inputIsReadOnly == true) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
-  checkInUseEmail(): AsyncValidatorFn {
-    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-      return this._storeService$.dataSourceO$.pipe(
-        map(things => {
-          things.filter = control.value!.trim().toLocaleLowerCase();
-          this.dataSource = things;
-          return (this.dataSource.filteredData.length > 0 &&
-            this.inputIsReadOnly == true) ? { 'alreadyInUse': true } : null;
-        }));
-    }
-  }
 
   getErrorMedecinName() {
     return this.formGroup!.get('unom')!.hasError('required') ? 'Field is required' :
@@ -272,22 +176,22 @@ export class MedecinsEditionComponent implements OnInit {
         this.formGroup!.get('uville')!.hasError('alreadyInUse') ? 'This phone is already in use' : '';
   }
   getErrorMedecinGsm() {
-    return this.formGroup!.get('Email')!.hasError('required') ? 'Field is required' :
-      this.formGroup!.get('Email')!.hasError('pattern') ? 'Not a valid GSM' :
-        this.formGroup!.get('Email')!.hasError('alreadyInUse') ? 'This GSM is already in use' : '';
+    return this.formGroup!.get('email')!.hasError('required') ? 'Field is required' :
+      this.formGroup!.get('email')!.hasError('pattern') ? 'Not a valid GSM' :
+        this.formGroup!.get('email')!.hasError('alreadyInUse') ? 'This GSM is already in use' : '';
   }
 
 
   onSubmit(post: any) {
     this.post = post;
     let formData: Medecins = new Medecins;
-    //formData.MedecinId = 0;
+    formData.id = "";
     formData.unom = this.unom.value;
     formData.uprenom = this.uprenom.value;
     formData.urue = this.urue.value;
     formData.ucodep = this.ucodep.value;
     formData.uville = this.uville.value;
-    formData.Email = this.Email.value;
+    formData.email = this.email.value;
 
     this._medecinsService.addMedecins(formData).subscribe(r => { });
     this._storeService$.dataSourceO$ =
@@ -299,14 +203,14 @@ export class MedecinsEditionComponent implements OnInit {
         }));
     this._storeService$.inputIsCreation.next(false);
     this._storeService$.inputIsReadOnly.next(true);
-    this.route.navigateByUrl('medecins/selection');
+    this.route.navigateByUrl('personnes/selection');
   }
   onKey(event: any) { this.document.body.tabIndex = 0; }
 
   deleteMedecin() {
     this._storeService$.inputIsCreation.next(false);
     this._storeService$.inputIsReadOnly.next(true);
-    this._medecinsService.deleteMedecins(this.medecinsId).subscribe(x => {
+    this._medecinsService.deleteMedecins(this.Id).subscribe(x => {
       this._storeService$.dataSourceO$ =
         this._medecinsService.getMedecins().pipe(
           map(things => {
@@ -314,14 +218,13 @@ export class MedecinsEditionComponent implements OnInit {
             dataSource.data = things;
             return dataSource;
           }));
-      this.route.navigateByUrl('medecins/selection');
+      this.route.navigateByUrl('personnes/selection');
     });
   }
 
   editMedecin() {
     this._storeService$.inputIsCreation.next(false);
     this._storeService$.inputIsReadOnly.next(false);
-    console.log(this.location.path());
 
     //window.location.reload();
     //this.reloadComponent;
@@ -343,7 +246,6 @@ export class MedecinsEditionComponent implements OnInit {
     let currentUrl = this.route.url;
     this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.route.navigate([currentUrl]);
-      console.log(currentUrl);
     });
   }
 }

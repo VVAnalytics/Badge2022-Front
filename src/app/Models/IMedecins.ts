@@ -1,11 +1,27 @@
 export interface IMedecins {
     unom: string;
     uprenom: string;
-    Email: string;
+    email: string;
     DateTime: string;
     urue: string;
     ucodep: string;
     uville: string;
     upays: string;
+    uformation: object;
+    uNotesEleve: object;
+    id: string;
+    userName: string;
+    normalizedUserName: string;
+    normalizedEmail: string;
+    emailConfirmed: boolean;
+    passwordHash: string;
+    securityStamp: string;
+    concurrencyStamp: string;
+    phoneNumber: string;
+    phoneNumberConfirmed: boolean;
+    twoFactorEnabled: boolean;
+    lockoutEnd: string;
+    lockoutEnabled: boolean;
+    accessFailedCount: number;
 }
 
