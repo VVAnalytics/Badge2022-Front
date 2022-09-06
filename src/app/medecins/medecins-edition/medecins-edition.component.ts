@@ -243,4 +243,7 @@ export class MedecinsEditionComponent implements OnInit {
       this.route.navigate([currentUrl]);
     });
   }
+  backMedecins() {
+    this.route.navigateByUrl('personnes/selection');
+  }
 }

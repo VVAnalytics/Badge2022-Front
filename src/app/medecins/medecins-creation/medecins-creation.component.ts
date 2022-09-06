@@ -181,15 +181,16 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
     formData.ucodep = this.ucodep.value;
     formData.uville = this.uville.value;
     formData.email = this.email.value;
-    this._medecinsService.addMedecins(formData).subscribe(r => { });
-    this._storeService$.dataSourceO$ =
-      this._medecinsService.getMedecins().pipe(
-        map(things => {
-          const dataSource = new MatTableDataSource<IMedecins>();
-          dataSource.data = things;
-          return dataSource;
-        }));
-    this.route.navigateByUrl('personnes/selection');
+    this._medecinsService.addMedecins(formData).subscribe(r => {
+      this._storeService$.dataSourceO$ =
+        this._medecinsService.getMedecins().pipe(
+          map(things => {
+            const dataSource = new MatTableDataSource<IMedecins>();
+            dataSource.data = things;
+            return dataSource;
+          }));
+      this.route.navigateByUrl('personnes/selection');
+    });
   }
   onKey(event: any) { this.document.body.tabIndex = 0; }
 }

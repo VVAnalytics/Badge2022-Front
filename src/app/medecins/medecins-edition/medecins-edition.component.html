@@ -65,8 +65,8 @@
         <button mat-raised-button color="primary" class="button3" (click)="editMedecin()">
           <a mat-fab>Edit</a>
         </button>
-        <button mat-raised-button color="primary" class="button3">
-          <a mat-fab routerLink=".">Back</a>
+        <button mat-raised-button color="primary" class="button3" (click)="backMedecins()">
+          <a mat-fab>Back</a>
         </button>
       </div>
       <div class="form-element" *ngIf="!inputIsCreation && !inputIsReadOnly">
@@ -75,8 +75,8 @@
         </button>
         <button mat-raised-button color="primary" type="submit" class="button3">Update</button>
 
-        <button mat-raised-button color="primary" class="button3">
-          <a mat-fab routerLink=".">Back</a>
+        <button mat-raised-button color="primary" class="button3" (click)="backMedecins()">
+          <a mat-fab>Back</a>
         </button>
       </div>
     </form>
