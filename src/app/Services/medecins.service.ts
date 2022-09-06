@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import TkStorage from './storageHelper';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IMedecins } from '../Models/IMedecins';
-import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'

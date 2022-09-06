@@ -23,11 +23,10 @@
     <span>dashboard</span>
 </div>
 <div class="menu-item">
-    <button (click)="button1()" mat-button class="menu-button"
-                                *ngIf="_storeService$.menuOption1$.value!.length > 0" 
-                                routerLink="/{{this.replaceSpec(_storeService$.menuOption1$.value!)}}">
-            <mat-icon>dashboard</mat-icon>
-            <span>{{_storeService$.menuOption1$| async}}</span>
+    <button (click)="button1()" mat-button class="menu-button" *ngIf="_storeService$.menuOption1$.value!.length > 0"
+        routerLink="/{{this.replaceSpec(_storeService$.menuOption1$.value!)}}">
+        <mat-icon>dashboard</mat-icon>
+        <span>{{_storeService$.menuOption1$| async}}</span>
     </button>
     <button (click)="button2()" mat-button class="menu-button" *ngIf="_storeService$.menuOption2$.value!.length > 0">
         <mat-icon>message</mat-icon>
@@ -45,7 +44,8 @@
         <mat-icon>settings</mat-icon>
         <span>{{_storeService$.menuOption5$| async}}</span>
     </button>
-    <button (click)="button6()" mat-button class="menu-button" *ngIf="_storeService$.menuOption6$.value!.length > 0">
+    <button (click)="button6()" mat-button class="menu-button" *ngIf="_storeService$.menuOption6$.value!.length > 0"
+        routerLink="/{{this.replaceSpec(_storeService$.menuOption6$.value!)}}">
         <mat-icon>settings</mat-icon>
         <span>{{_storeService$.menuOption6$| async}}</span>
     </button>

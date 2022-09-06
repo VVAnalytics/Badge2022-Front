@@ -1,4 +1,5 @@
 export class Medicaments {
-    MedicamentId! : number;
-    MedicamentNom! : string;
+    id!: number;
+    name!: string;
+    personnes!: object;
 }

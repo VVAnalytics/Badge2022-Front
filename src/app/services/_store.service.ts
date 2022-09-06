@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { IMedecins } from '../Models/IMedecins';
 import { FormControl, FormGroup } from '@angular/forms';
+import { IMedicaments } from '../Models/IMedicaments';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,16 @@ export default class _storeService {
     MedecinTelephone: new FormControl('uville'),
     MedecinGsm: new FormControl('Email'),
   });
+
+  // ECRAN : Médicaments Sélection
+  medicamentsB$: BehaviorSubject<MatTableDataSource<IMedicaments> | null> = new BehaviorSubject<MatTableDataSource<IMedicaments> | null>(null);
+  medicamentsO$: Observable<MatTableDataSource<IMedicaments>> = new Observable<MatTableDataSource<IMedicaments>>();
+
+  // ECRAN : Médicaments création
+  medicamentsCreationFG$ = new FormGroup({
+    MedicamentsName: new FormControl('name'),
+  });
+
 
 
   private constructor() {
