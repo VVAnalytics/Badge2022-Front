@@ -2,36 +2,40 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Ordonnances } from '../Models/Ordonnances';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import TkStorage from './storageHelper';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdonnancesService {
 
-  private _Ordonnances! : Ordonnances[];
+  private _ordonnances!: Ordonnances[];
+  tokens = TkStorage.getInstance();
+  private _url: string = environment.apiURL + "/Formations/";
 
-  private _url : string = environment.apiURL + "/Ordonnances/";
+  constructor(private _http: HttpClient) { }
 
-  constructor(private _http : HttpClient) { }
-
-  getOrdonnances() : Observable<Ordonnances[]> {
-    return this._http.get<Ordonnances[]>(this._url);
+  getOrdonnances(): Observable<Ordonnances[]> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken() });
+    return this._http.get<Ordonnances[]>(this._url + "GetAll", { headers: myheaders });
   }
-
-  getOrdonnancesById(id : number) : Observable<Ordonnances> {
-    return this._http.get<Ordonnances>(this._url+id)
-}
-
-  addOrdonnances(ordonnances : Ordonnances) : Observable<Ordonnances>{
-    return this._http.post<Ordonnances>(this._url, ordonnances);
+  getOrdonnancesById(id: number): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json', 'charset': 'utf-8', 'Accept': 'application/json' });
+    return this._http.get<Ordonnances>(this._url + "GetOne/" + id, { headers: myheaders });
   }
-
-  editOrdonnances(id : number, ordonnances : Ordonnances) : Observable<Ordonnances>{
-    return this._http.put<Ordonnances>(this._url+ordonnances.OrdonnanceId, ordonnances);
+  addOrdonnances(Ordonnances: Ordonnances): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json', 'charset': 'utf-8', 'Accept': 'application/json' });
+    const mybody = JSON.stringify(Ordonnances);
+    return this._http.post<Ordonnances[]>(this._url + "Post", mybody, { headers: myheaders });
   }
-
-  deleteOrdonnances(id : number) : Observable<Ordonnances>{ 
-    return this._http.delete<Ordonnances>(this._url+id)
+  editOrdonnances(id: number, Ordonnances: Ordonnances): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json', 'charset': 'utf-8', 'Accept': 'application/json' });
+    const mybody = JSON.stringify(Ordonnances);
+    return this._http.put<Ordonnances[]>(this._url + "Put/" + id, mybody, { headers: myheaders });
+  }
+  deleteOrdonnances(id: number): Observable<any> {
+    const myheaders = new HttpHeaders({ 'Authorization': 'Bearer ' + this.tokens.getAccessToken(), 'Content-Type': 'application/json', 'charset': 'utf-8', 'Accept': 'application/json' });
+    return this._http.delete<Ordonnances[]>(this._url + "Delete/" + id, { headers: myheaders });
   }
 }

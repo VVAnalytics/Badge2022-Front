@@ -15,7 +15,7 @@
         </th>
     </ng-container>
     <table mat-table [dataSource]="(_storeService$.medicamentsO$.source| async)" class="table" matSort
-        matSortActive="unom" matSortStart="desc" (matSortChange)="sortData($event)">
+        matSortActive="name" matSortStart="desc" (matSortChange)="sortData($event)">
 
         <ng-container [matColumnDef]="col"
             *ngFor="let col of (_storeService$.displayedColumns$ | async); let i = index">

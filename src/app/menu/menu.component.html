@@ -28,7 +28,8 @@
         <mat-icon>dashboard</mat-icon>
         <span>{{_storeService$.menuOption1$| async}}</span>
     </button>
-    <button (click)="button2()" mat-button class="menu-button" *ngIf="_storeService$.menuOption2$.value!.length > 0">
+    <button (click)="button2()" mat-button class="menu-button" *ngIf="_storeService$.menuOption2$.value!.length > 0"
+        routerLink="/{{this.replaceSpec(_storeService$.menuOption2$.value!)}}">
         <mat-icon>message</mat-icon>
         <span>{{_storeService$.menuOption2$| async}}</span>
     </button>
