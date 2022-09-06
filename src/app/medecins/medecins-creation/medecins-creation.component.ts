@@ -8,9 +8,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { DOCUMENT } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Medecins } from 'src/app/Models/Medecins';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-medecins-creation',
@@ -25,17 +26,27 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
   _storeService$ = _storeService.getInstance();
   post: any = '';
   formGroup!: FormGroup;
+
+  // Param de l'écran :
+  inputIsCreation: boolean = false;
+  inputIsReadOnly: boolean = true;
+
   bodyText: string = "";
   title = 'GestPharmaFR';
   windowScrolled: boolean | undefined;
   dataSource = new MatTableDataSource<IMedecins>();
   displayedFields: string[] = ['Nom', 'Prénom', 'Rue', 'Code postal', 'Ville', 'Email', 'Details', 'Update', 'Delete'];   // ,'medecinRue','medecinFax'
 
+  Id: number = 0;
+  medecins: Medecins = new Medecins;
+
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private _activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private modalService: ModalService,
+    private location: Location,
     private _medecinsService: MedecinsService,
     @Inject(DOCUMENT) private document: Document,
     private route: Router,
@@ -45,6 +56,9 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
         'ucodep', 'uville', 'email',
         'details', 'update', 'delete']);   // ,'medecinRue','medecinFax'
     this._storeService$.dataSourceO$ = new Observable<MatTableDataSource<IMedecins>>();
+    this.inputIsCreation = (this._storeService$.inputIsCreation.value == true) ? true : false;
+    this.inputIsReadOnly = (this._storeService$.inputIsReadOnly.value == true) ? true : false;
+    //this.Id = Number(this._activatedRoute.snapshot.params['id']);
   }
   @HostListener("window:scroll", [])
 
@@ -160,7 +174,7 @@ export class MedecinsCreationComponent implements OnInit, AfterViewInit {
   onSubmit(post: any) {
     this.post = post;
     let formData: Medecins = new Medecins;
-    formData.id = "";
+    formData.id = "0";
     formData.unom = this.unom.value;
     formData.uprenom = this.uprenom.value;
     formData.urue = this.urue.value;

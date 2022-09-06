@@ -2,11 +2,12 @@ export interface IMedecins {
     unom: string;
     uprenom: string;
     email: string;
-    DateTime: string;
+    dateTime: string;
     urue: string;
     ucodep: string;
     uville: string;
     upays: string;
+    urole: object;
     uformation: object;
     uNotesEleve: object;
     id: string;

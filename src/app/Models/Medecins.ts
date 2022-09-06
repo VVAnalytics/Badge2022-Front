@@ -7,6 +7,9 @@ export class Medecins {
     ucodep!: string;
     uville!: string;
     upays!: string;
+    urole!: object;
+    uformation!: object;
+    uNotesEleve!: object;
     id!: string;
     userName!: string;
     normalizedUserName!: string;

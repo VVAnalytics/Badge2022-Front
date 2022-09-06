@@ -82,7 +82,7 @@ export class MedecinsEditionComponent implements OnInit {
     this.formGroup = this._storeService$.medecinCreationFG$;
     if (!this.inputIsCreation) {
       this._medecinsService.getMedecinsById(this.Id).subscribe(x => {
-        const mdc = x[0] as IMedecins;
+        const mdc = x;  //x[0] as IMedecins;
         this.formGroup.controls['unom'].setValue(mdc.unom);
         this.formGroup.controls['uprenom'].setValue(mdc.uprenom);
         this.formGroup.controls['urue'].setValue(mdc.urue);
@@ -148,8 +148,6 @@ export class MedecinsEditionComponent implements OnInit {
     return this.formGroup.get('email') as FormControl
   }
 
-
-
   getErrorMedecinName() {
     return this.formGroup!.get('unom')!.hasError('required') ? 'Field is required' :
       this.formGroup!.get('unom')!.hasError('pattern') ? 'Not a valid NAME' :
@@ -184,26 +182,29 @@ export class MedecinsEditionComponent implements OnInit {
 
   onSubmit(post: any) {
     this.post = post;
-    let formData: Medecins = new Medecins;
-    formData.id = "";
-    formData.unom = this.unom.value;
-    formData.uprenom = this.uprenom.value;
-    formData.urue = this.urue.value;
-    formData.ucodep = this.ucodep.value;
-    formData.uville = this.uville.value;
-    formData.email = this.email.value;
-
-    this._medecinsService.addMedecins(formData).subscribe(r => { });
-    this._storeService$.dataSourceO$ =
-      this._medecinsService.getMedecins().pipe(
-        map(things => {
-          const dataSource = new MatTableDataSource<IMedecins>();
-          dataSource.data = things;
-          return dataSource;
-        }));
-    this._storeService$.inputIsCreation.next(false);
-    this._storeService$.inputIsReadOnly.next(true);
-    this.route.navigateByUrl('personnes/selection');
+    var formData: Medecins = new Medecins;
+    this._medecinsService.getMedecinsById(this.Id).subscribe(x => {
+      formData = x;
+      formData.unom = this.unom.value;
+      formData.uprenom = this.uprenom.value;
+      formData.urue = this.urue.value;
+      formData.ucodep = this.ucodep.value;
+      formData.uville = this.uville.value;
+      formData.email = this.email.value;
+      this._medecinsService.editMedecins(this.Id, formData).subscribe(x => {
+        this._storeService$.dataSourceO$ =
+          this._medecinsService.getMedecins().pipe(
+            map(things => {
+              const dataSource = new MatTableDataSource<IMedecins>();
+              dataSource.data = things;
+              return dataSource;
+            }));
+        this._storeService$.inputIsCreation.next(false);
+        this._storeService$.inputIsReadOnly.next(true);
+        this.route.navigateByUrl('personnes/selection');
+      });
+    }
+    )
   }
   onKey(event: any) { this.document.body.tabIndex = 0; }
 
@@ -225,15 +226,7 @@ export class MedecinsEditionComponent implements OnInit {
   editMedecin() {
     this._storeService$.inputIsCreation.next(false);
     this._storeService$.inputIsReadOnly.next(false);
-
-    //window.location.reload();
-    //this.reloadComponent;
     this.reloadCurrentRoute;
-
-    /*     this.route.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-          this.route.navigate([this.location.path()]);
-        });
-        this.route.navigate([this.location.path()]); */
   }
 
   reloadComponent() {
