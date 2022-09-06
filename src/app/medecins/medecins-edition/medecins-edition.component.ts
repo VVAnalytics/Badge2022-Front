@@ -224,13 +224,15 @@ export class MedecinsEditionComponent implements OnInit {
   }
 
   editMedecin() {
+    console.log("edit")
     this._storeService$.inputIsCreation.next(false);
     this._storeService$.inputIsReadOnly.next(false);
-    this.reloadCurrentRoute;
+    this.reloadComponent();
   }
 
   reloadComponent() {
     let currentUrl = this.route.url;
+    console.log(currentUrl)
     this.route.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.onSameUrlNavigation = 'reload';
     this.route.navigate([currentUrl]);
