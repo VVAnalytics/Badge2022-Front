@@ -10,6 +10,20 @@
         </button>
         <span flex></span>
     </div>
+    <mat-form-field>
+        <mat-label>Preffered currency</mat-label>
+        <mat-select [(value)]="selected">
+
+        <mat-option *ngFor="let currency of currencies" [value]="currency.value">
+            {{currency.text}}
+        </mat-option>
+
+        </mat-select>
+    </mat-form-field>
+    <p>
+    Selected Value: {{selected}}
+    </p>
+
 
     <ng-container matColumnDef="creation">
         <th mat-header-cell-bt *matHeaderCellDef style="background-color:darksalmon; max-width: 19px; min-width: 19px;">

@@ -4,8 +4,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MedecinsComponent } from './medecins/medecins.component';
 import { MedicamentsComponent } from './medicaments/medicaments.component';
-import { PharmaciensComponent } from './pharmaciens/pharmaciens.component';
 import { OrdonnancesComponent } from './ordonnances/ordonnances.component';
+import { PharmaciensComponent } from './pharmaciens/pharmaciens.component';
 import { PiluliersComponent } from './piluliers/piluliers.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 

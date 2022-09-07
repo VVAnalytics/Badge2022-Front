@@ -11,6 +11,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pharmaciens-selection',
@@ -19,6 +20,12 @@ import { Router } from '@angular/router';
 
 })
 export class PharmaciensSelectionComponent implements OnInit {
+  colorControl = new FormControl('primary');
+  fontSizeControl = new FormControl(16, Validators.min(10));
+  options = this._formBuilder.group({
+    color: this.colorControl,
+    fontSize: this.fontSizeControl,
+  });
   bodyText: string = "";
   _storeService$ = _storeService.getInstance();
   title = 'GestPharmaFR';
@@ -31,6 +38,7 @@ export class PharmaciensSelectionComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   constructor(private modalService: ModalService,
+    private _formBuilder: FormBuilder,
     private _PharmaciensService: PharmaciensService,
     private _OrdonnancesService: OrdonnancesService,
     @Inject(DOCUMENT) private document: Document,
