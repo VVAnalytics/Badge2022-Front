@@ -33,11 +33,13 @@
         <mat-icon>message</mat-icon>
         <span>{{_storeService$.menuOption2$| async}}</span>
     </button>
-    <button (click)="button3()" mat-button class="menu-button" *ngIf="_storeService$.menuOption3$.value!.length > 0">
+    <button (click)="button3()" mat-button class="menu-button" *ngIf="_storeService$.menuOption3$.value!.length > 0"
+        routerLink="/{{this.replaceSpec(_storeService$.menuOption3$.value!)}}">
         <mat-icon>comment</mat-icon>
         <span>{{_storeService$.menuOption3$| async}}</span>
     </button>
-    <button (click)="button4()" mat-button class="menu-button" *ngIf="_storeService$.menuOption4$.value!.length > 0">
+    <button (click)="button4()" mat-button class="menu-button" *ngIf="_storeService$.menuOption4$.value!.length > 0"
+        routerLink="/{{this.replaceSpec(_storeService$.menuOption4$.value!)}}">
         <mat-icon>pages</mat-icon>
         <span>{{_storeService$.menuOption4$| async}}</span>
     </button>

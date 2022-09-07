@@ -6,6 +6,8 @@ import { IMedecins } from '../Models/IMedecins';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IMedicaments } from '../Models/IMedicaments';
 import { IOrdonnances } from '../Models/IOrdonnances';
+import { IPharmaciens } from '../Models/IPharmaciens';
+import { IPiluliers } from '../Models/IPiluliers';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +65,14 @@ export default class _storeService {
   ordonnancesB$: BehaviorSubject<MatTableDataSource<IOrdonnances> | null> = new BehaviorSubject<MatTableDataSource<IOrdonnances> | null>(null);
   ordonnancesO$: Observable<MatTableDataSource<IOrdonnances>> = new Observable<MatTableDataSource<IOrdonnances>>();
 
+  // ECRAN : Pharmacienss Sélection
+  pharmaciensB$: BehaviorSubject<MatTableDataSource<IPharmaciens> | null> = new BehaviorSubject<MatTableDataSource<IPharmaciens> | null>(null);
+  pharmaciensO$: Observable<MatTableDataSource<IPharmaciens>> = new Observable<MatTableDataSource<IPharmaciens>>();
+
+  // ECRAN : Piluliers Sélection
+  piluliersB$: BehaviorSubject<MatTableDataSource<IPiluliers> | null> = new BehaviorSubject<MatTableDataSource<IPiluliers> | null>(null);
+  piluliersO$: Observable<MatTableDataSource<IPiluliers>> = new Observable<MatTableDataSource<IPiluliers>>();
+
 
   // ECRAN : Médicaments création
   medicamentsCreationFG$ = new FormGroup({
@@ -74,6 +84,15 @@ export default class _storeService {
     MedicamentsName: new FormControl('fnom'),
   });
 
+  // ECRAN : Pharmaciens création
+  pharmaciensCreationFG$ = new FormGroup({
+    MedicamentsName: new FormControl('cnom'),
+  });
+
+  // ECRAN : Piluliers création
+  piluliersCreationFG$ = new FormGroup({
+    MedicamentsName: new FormControl('nnote'),
+  });
 
   private constructor() {
     //super();
