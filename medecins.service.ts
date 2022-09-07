@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { Medecins } from '../Models/Medecins';
+import { environment } from './src/environments/environment';
+import { Medecins } from './src/app/Models/Medecins';
 import { Observable } from 'rxjs';
-import TkStorage from './storageHelper';
+import TkStorage from './src/app/Services/storageHelper';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IMedecins } from '../Models/IMedecins';
+import { IMedecins } from './src/app/Models/IMedecins';
 
 @Injectable({
   providedIn: 'root'

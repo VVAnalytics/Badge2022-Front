@@ -23,9 +23,7 @@ import { MedecinsModule } from './medecins/medecins.module';
 import { PharmaciensModule } from './pharmaciens/pharmaciens.module';
 import { MedicamentsModule } from './medicaments/medicaments.module';
 import { OrdonnancesModule } from './ordonnances/ordonnances.module';
-import { ArmoiresModule } from './armoires/armoires.module';
 import { PiluliersModule } from './piluliers/piluliers.module';
-import { PersonnesModule } from './personnes/personnes.module';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { HomeComponent } from './home/home.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -47,7 +45,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     BrowserModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     MatSidenavModule,
@@ -66,15 +64,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PharmaciensModule,
     MedicamentsModule,
     OrdonnancesModule,
-    ArmoiresModule,
-    PiluliersModule,
-    PersonnesModule
+    PiluliersModule
 
   ],
   exports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -94,12 +90,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PharmaciensModule,
     MedicamentsModule,
     OrdonnancesModule,
-    ArmoiresModule,
-    PiluliersModule,
-    PersonnesModule
+    PiluliersModule
   ],
   providers: [
-    {provide : HTTP_INTERCEPTORS, useClass : TokenInterceptorInterceptor, multi : true}
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

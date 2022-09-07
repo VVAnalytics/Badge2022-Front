@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { MedecinsComponent } from './medecins/medecins.component';
 import { MedicamentsComponent } from './medicaments/medicaments.component';
 import { OrdonnancesComponent } from './ordonnances/ordonnances.component';
+import { PharmaciensComponent } from './pharmaciens/pharmaciens.component';
+import { PiluliersComponent } from './piluliers/piluliers.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
@@ -14,6 +16,10 @@ const routes: Routes = [
   { path: "roles", component: MedicamentsComponent, loadChildren: () => import('./medicaments/medicaments.module').then(m => m.MedicamentsModule) },
   { path: "Formations", component: OrdonnancesComponent, loadChildren: () => import('./ordonnances/ordonnances.module').then(m => m.OrdonnancesModule) },
   { path: "formations", component: OrdonnancesComponent, loadChildren: () => import('./ordonnances/ordonnances.module').then(m => m.OrdonnancesModule) },
+  { path: "Cours", component: PharmaciensComponent, loadChildren: () => import('./pharmaciens/pharmaciens.module').then(m => m.PharmaciensModule) },
+  { path: "cours", component: PharmaciensComponent, loadChildren: () => import('./pharmaciens/pharmaciens.module').then(m => m.PharmaciensModule) },
+  { path: "Notes", component: PiluliersComponent, loadChildren: () => import('./piluliers/piluliers.module').then(m => m.PiluliersModule) },
+  { path: "notes", component: PiluliersComponent, loadChildren: () => import('./piluliers/piluliers.module').then(m => m.PiluliersModule) },
 
   { path: 'notfound', component: NotfoundComponent },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
