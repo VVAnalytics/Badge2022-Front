@@ -29,7 +29,7 @@
             <th mat-header-cell-bt *matHeaderCellDef
                 style="background-color:darksalmon; max-width: 19px; min-width: 19px;"></th>
             <td *matCellDef="let element">
-                <button (click)="redirectToDetails(element.id)">
+                <button (click)="redirectToDetails(element.fid)">
                     <mat-icon class="customIconSize">comment</mat-icon>
                 </button>
             </td>
@@ -39,7 +39,7 @@
             <th mat-header-cell-bt *matHeaderCellDef
                 style="background-color:darksalmon; max-width: 19px; min-width: 19px;"></th>
             <td *matCellDef="let element">
-                <button (click)="redirectToUpdate(element.id)">
+                <button (click)="redirectToUpdate(element.fid)">
                     <mat-icon class="customIconSize">update</mat-icon>
                 </button>
             </td>
@@ -49,7 +49,7 @@
             <th mat-header-cell-bt *matHeaderCellDef
                 style="background-color:darksalmon; max-width: 19px; min-width: 19px;"></th>
             <td *matCellDef="let element">
-                <button (click)="redirectToDelete(element.id)">
+                <button (click)="redirectToDelete(element.fid)">
                     <mat-icon class="customIconSize">delete</mat-icon>
                 </button>
             </td>
