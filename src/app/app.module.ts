@@ -28,9 +28,6 @@ import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { HomeComponent } from './home/home.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +61,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PharmaciensModule,
     MedicamentsModule,
     OrdonnancesModule,
-    PiluliersModule
+    PiluliersModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule
 
   ],
   exports: [
@@ -95,6 +95,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

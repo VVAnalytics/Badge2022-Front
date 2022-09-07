@@ -3,31 +3,44 @@ import { ModalService } from '../../_modal';
 import _storeService from '../../Services/_store.service';
 import { PharmaciensService } from 'src/app/Services/pharmaciens.service';
 import { IPharmaciens } from 'src/app/Models/IPharmaciens';
+import { OrdonnancesService } from 'src/app/Services/ordonnances.service';
+import { IOrdonnances } from 'src/app/Models/IOrdonnances';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pharmaciens-selection',
   templateUrl: './pharmaciens-selection.component.html',
-  styleUrls: ['./pharmaciens-selection.component.css']
+  styleUrls: ['./pharmaciens-selection.component.css'],
+
 })
 export class PharmaciensSelectionComponent implements OnInit {
+  colorControl = new FormControl('primary');
+  fontSizeControl = new FormControl(16, Validators.min(10));
+  options = this._formBuilder.group({
+    color: this.colorControl,
+    fontSize: this.fontSizeControl,
+  });
   bodyText: string = "";
   _storeService$ = _storeService.getInstance();
   title = 'GestPharmaFR';
   windowScrolled: boolean | undefined;
   dataSource = new MatTableDataSource<IPharmaciens>();
+  dataSourceO = new MatTableDataSource<IOrdonnances>();
   displayedFields: string[] = ['Nom des cours', 'Details', 'Update', 'Delete'];   // ,'medecinRue','medecinFax'
 
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   constructor(private modalService: ModalService,
+    private _formBuilder: FormBuilder,
     private _PharmaciensService: PharmaciensService,
+    private _OrdonnancesService: OrdonnancesService,
     @Inject(DOCUMENT) private document: Document,
     private route: Router,
   ) {
@@ -35,6 +48,7 @@ export class PharmaciensSelectionComponent implements OnInit {
       ['cnom',
         'details', 'update', 'delete']);   // ,'medecinRue','medecinFax'
     this._storeService$.pharmaciensO$ = new Observable<MatTableDataSource<IPharmaciens>>();
+    this._storeService$.ordonnancesO$ = new Observable<MatTableDataSource<IOrdonnances>>();
   }
 
   @HostListener("window:scroll", [])
@@ -57,6 +71,14 @@ export class PharmaciensSelectionComponent implements OnInit {
     )();
   }
   ngOnInit(): void {
+    this._storeService$.ordonnancesO$ =
+      this._OrdonnancesService.getOrdonnances().pipe(
+        map(things => {
+          const dataSourceO = new MatTableDataSource<IOrdonnances>();
+          dataSourceO.data = things;
+          return dataSourceO;
+        }));
+
     this._storeService$.pharmaciensO$ =
       this._PharmaciensService.getPharmaciens().pipe(
         map(things => {

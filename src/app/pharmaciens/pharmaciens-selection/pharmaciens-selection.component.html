@@ -10,11 +10,26 @@
         </button>
         <span flex></span>
     </div>
+    <mat-form-field>
+        <mat-label>Preffered currency</mat-label>
+        <mat-select [(value)]="selected">
+
+        <mat-option *ngFor="let currency of currencies" [value]="currency.value">
+            {{currency.text}}
+        </mat-option>
+
+        </mat-select>
+    </mat-form-field>
+    <p>
+    Selected Value: {{selected}}
+    </p>
+
+
     <ng-container matColumnDef="creation">
         <th mat-header-cell-bt *matHeaderCellDef style="background-color:darksalmon; max-width: 19px; min-width: 19px;">
         </th>
     </ng-container>
-    <table mat-table [dataSource]="(_storeService$.ordonnancesO$.source| async)" class="table" matSort
+    <table mat-table [dataSource]="(_storeService$.pharmaciensO$.source| async)" class="table" matSort
         matSortActive="cnom" matSortStart="desc" (matSortChange)="sortData($event)">
 
         <ng-container [matColumnDef]="col"
@@ -29,7 +44,7 @@
             <th mat-header-cell-bt *matHeaderCellDef
                 style="background-color:darksalmon; max-width: 19px; min-width: 19px;"></th>
             <td *matCellDef="let element">
-                <button (click)="redirectToDetails(element.fid)">
+                <button (click)="redirectToDetails(element.cid)">
                     <mat-icon class="customIconSize">comment</mat-icon>
                 </button>
             </td>
@@ -39,7 +54,7 @@
             <th mat-header-cell-bt *matHeaderCellDef
                 style="background-color:darksalmon; max-width: 19px; min-width: 19px;"></th>
             <td *matCellDef="let element">
-                <button (click)="redirectToUpdate(element.fid)">
+                <button (click)="redirectToUpdate(element.cid)">
                     <mat-icon class="customIconSize">update</mat-icon>
                 </button>
             </td>
@@ -49,7 +64,7 @@
             <th mat-header-cell-bt *matHeaderCellDef
                 style="background-color:darksalmon; max-width: 19px; min-width: 19px;"></th>
             <td *matCellDef="let element">
-                <button (click)="redirectToDelete(element.fid)">
+                <button (click)="redirectToDelete(element.cid)">
                     <mat-icon class="customIconSize">delete</mat-icon>
                 </button>
             </td>
