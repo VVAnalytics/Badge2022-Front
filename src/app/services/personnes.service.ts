@@ -8,6 +8,7 @@ import TkStorage from './storageHelper';
 import { DecodedToken } from '../Models/DecodedToken';
 import jwtDecode from 'jwt-decode';
 import _storeService from './_store.service';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -51,13 +52,14 @@ export class PersonnesService {
 
   // Pour aller chercher le Token et mettre a jour le Store
   addPersonnesLogin(email: string, password: string): Observable<Tokens> {
-    let plainText: string = "";
-    let encryptText: string = "";
-    let encPassword: string = "";
-    let decPassword: string = "";
-    let conversionEncryptOutput: string = "";
-    let conversionDecryptOutput: string = "";
-    return this._http.post<Tokens>(this._url + 'Login?' + 'email=' + email + '&password=' + password, undefined).pipe(tap(data => {
+    let conversionEncryptOutput = CryptoJS.AES.encrypt(password!.trim(), email!.trim(),
+      {
+        keySize: 128 / 8,
+        iv: CryptoJS.enc.Utf8.parse('8080808080808080'),
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+      });
+    return this._http.post<Tokens>(this._url + 'Login?' + 'email=' + email + '&password=' + conversionEncryptOutput, undefined).pipe(tap(data => {
       this.roles$.next(jwtDecode(data.token));
       this._storeService$.emailOfPersonneLogged$.next(this.roles$.value?.unique_name ?? "");
       this._storeService$.rolesOfPersonneLogged$.next(this.roles$.value?.role ?? "");
