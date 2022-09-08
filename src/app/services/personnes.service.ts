@@ -9,6 +9,7 @@ import { DecodedToken } from '../Models/DecodedToken';
 import jwtDecode from 'jwt-decode';
 import _storeService from './_store.service';
 import * as forge from 'node-forge';
+import { Users } from '../Models/Users';
 
 @Injectable({
   providedIn: 'root'
@@ -61,10 +62,13 @@ export class PersonnesService {
   }
 
   // Pour aller chercher le Token et mettre a jour le Store
-  addPersonnesLogin(email: string, password: string): Observable<Tokens> {
+  addPersonnesLogin(emails: string, passwords: string): Observable<Tokens> {
     var rsa = forge.pki.publicKeyFromPem(this.publicKey);
-    const conversionEncryptOutput =  window.btoa(rsa.encrypt(password));
-    return this._http.post<Tokens>(this._url + 'Login?' + 'email=' + email + '&password=' + conversionEncryptOutput, undefined).pipe(tap(data => {
+    const conversionEncryptOutput = window.btoa(rsa.encrypt(passwords));
+    const user = new Users(emails, conversionEncryptOutput);
+    user.password = conversionEncryptOutput;
+    let myheaders = new HttpHeaders({ 'Access-Control-Allow-Origin': '*' });
+    return this._http.post<Tokens>(this._url + 'Login', user, { headers: myheaders }).pipe(tap(data => {
       this.roles$.next(jwtDecode(data.token));
       this._storeService$.emailOfPersonneLogged$.next(this.roles$.value?.unique_name ?? "");
       this._storeService$.rolesOfPersonneLogged$.next(this.roles$.value?.role ?? "");

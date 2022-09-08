@@ -1,4 +1,8 @@
 export class Users {
-    email! : string;
-    password! : string;
+    email: string;
+    password: string;
+    constructor(e: string, p: string) {
+        this.email = e;
+        this.password = p;
+    }
 }
