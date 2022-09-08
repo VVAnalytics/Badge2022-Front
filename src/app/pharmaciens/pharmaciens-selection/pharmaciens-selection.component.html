@@ -10,11 +10,11 @@
         </button>
         <span flex></span>
     </div>
-
     <ng-container matColumnDef="creation">
         <th mat-header-cell-bt *matHeaderCellDef style="background-color:darksalmon; max-width: 19px; min-width: 19px;">
         </th>
     </ng-container>
+
     <table mat-table [dataSource]="(_storeService$.pharmaciensO$.source| async)" class="table" matSort
         matSortActive="cnom" matSortStart="desc" (matSortChange)="sortData($event)">
 

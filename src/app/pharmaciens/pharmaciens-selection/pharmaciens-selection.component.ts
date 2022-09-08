@@ -11,6 +11,8 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
+import { Ordonnances } from 'src/app/Models/Ordonnances';
 
 @Component({
   selector: 'app-pharmaciens-selection',
@@ -63,6 +65,8 @@ export class PharmaciensSelectionComponent implements OnInit {
     )();
   }
   ngOnInit(): void {
+    let formationControl = new FormControl(null, Validators.required);
+    let selectFormControl = new FormControl('', Validators.required);
     this._storeService$.ordonnancesO$ =
       this._OrdonnancesService.getOrdonnances().pipe(
         map(things => {
@@ -122,7 +126,7 @@ export class PharmaciensSelectionComponent implements OnInit {
     this._storeService$.pharmaciensO$.subscribe(
       {
         next: (data: any) => {
-          this.route.navigateByUrl('/pharmaciens/creation');
+          this.route.navigateByUrl('/cours/creation');
         }
       });
   }
@@ -132,7 +136,7 @@ export class PharmaciensSelectionComponent implements OnInit {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(false);
-          this.route.navigateByUrl('/pharmaciens/edition/' + id);
+          this.route.navigateByUrl('/cours/edition/' + id);
         }
       });
   }
@@ -142,7 +146,7 @@ export class PharmaciensSelectionComponent implements OnInit {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(true);
-          this.route.navigateByUrl('/pharmaciens/edition/' + id);
+          this.route.navigateByUrl('/cours/edition/' + id);
         }
       });
   }
@@ -152,7 +156,7 @@ export class PharmaciensSelectionComponent implements OnInit {
         next: (data: any) => {
           this._storeService$.inputIsCreation.next(false);
           this._storeService$.inputIsReadOnly.next(true);
-          this.route.navigateByUrl('/pharmaciens/edition/' + id);
+          this.route.navigateByUrl('/cours/edition/' + id);
         }
       });
   }
