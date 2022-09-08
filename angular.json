@@ -102,5 +102,8 @@
       }
     }
   },
-  "defaultProject": "GestPharmaFR"
+  "defaultProject": "GestPharmaFR",
+  "cli": {
+    "analytics": false
+  }
 }

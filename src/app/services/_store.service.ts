@@ -48,7 +48,7 @@ export default class _storeService {
   displayedFields$: Observable<string[]> = new Observable<string[]>();
 
   // ECRAN : Médecins création
-  medecinCreationFG$ = new FormGroup({
+  medecinCreationFG$:any = new FormGroup({
     MedecinName: new FormControl('unom'),
     MedecinInami: new FormControl('uprenom'),
     MedecinRue: new FormControl('urue'),
@@ -75,22 +75,22 @@ export default class _storeService {
 
 
   // ECRAN : Médicaments création
-  medicamentsCreationFG$ = new FormGroup({
+  medicamentsCreationFG$:any = new FormGroup({
     MedicamentsName: new FormControl('name'),
   });
 
   // ECRAN : Ordonnances création
-  ordonnancesCreationFG$ = new FormGroup({
+  ordonnancesCreationFG$:any = new FormGroup({
     MedicamentsName: new FormControl('fnom'),
   });
 
   // ECRAN : Pharmaciens création
-  pharmaciensCreationFG$ = new FormGroup({
+  pharmaciensCreationFG$:any = new FormGroup({
     MedicamentsName: new FormControl('cnom'),
   });
 
   // ECRAN : Piluliers création
-  piluliersCreationFG$ = new FormGroup({
+  piluliersCreationFG$:any = new FormGroup({
     MedicamentsName: new FormControl('nnote'),
   });
 
