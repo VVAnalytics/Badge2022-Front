@@ -10,6 +10,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { OrdonnancesService } from 'src/app/Services/ordonnances.service';
 
 @Component({
   selector: 'app-piluliers-selection',
@@ -30,6 +31,7 @@ export class PiluliersSelectionComponent implements OnInit {
 
   constructor(private modalService: ModalService,
     private _piluliersService: PiluliersService,
+    private _ordonnancesService : OrdonnancesService,
     @Inject(DOCUMENT) private document: Document,
     private route: Router,
   ) {
@@ -63,6 +65,13 @@ export class PiluliersSelectionComponent implements OnInit {
       this._piluliersService.getPiluliers().pipe(
         map(things => {
           const dataSource = new MatTableDataSource<IPiluliers>();
+          dataSource.data = things;
+          return dataSource;
+        }));
+    this._storeService$.ordonnancesO$ =
+      this._ordonnancesService.getOrdonnances().pipe(
+        map(things => {
+          const dataSource = new MatTableDataSource<IOrdonnances>();
           dataSource.data = things;
           return dataSource;
         }));

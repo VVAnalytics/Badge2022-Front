@@ -10,6 +10,15 @@
         </button>
         <span flex></span>
     </div>
+
+    <mat-form-field>
+      <mat-select placeholder="Favorite food">
+        <mat-option *ngFor="let food of (_storeService$.ordonnancesO$.source| async)" [value]="food.fnom">
+          {{ food.fnom }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <ng-container matColumnDef="creation">
         <th mat-header-cell-bt *matHeaderCellDef style="background-color:darksalmon; max-width: 19px; min-width: 19px;">
         </th>

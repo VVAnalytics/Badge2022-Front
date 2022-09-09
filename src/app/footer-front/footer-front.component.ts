@@ -23,8 +23,8 @@ export class FooterFrontComponent implements OnInit {
   tokens = TkStorage.getInstance();
   _storeService$ = _storeService.getInstance();
 
-  constructor(  private modalService: ModalService, 
-                private _personnesService : PersonnesService, 
+  constructor(  private modalService: ModalService,
+                private _personnesService : PersonnesService,
                 private keyValue: KeyValuePipe,
                 private route: Router) { }
 
@@ -42,11 +42,11 @@ export class FooterFrontComponent implements OnInit {
     this.bodyText = 'Loading...';
     //this.openFootModal('foot-modal-1');
     this._personnesService.addPersonnesLogin(this.AccEmail, this.AccPwd).subscribe(data => {
-      const decoded = <DecodedToken>jwtDecode(data.token);
+      const decoded : any= <DecodedToken>jwtDecode(data.token);
       this.tokens.setAccessToken(data.token);
       this._storeService$.isUserLogin$.next(true);
-      this._storeService$.emailOfPersonneLogged$.next(decoded.unique_name);
-      this._storeService$.rolesOfPersonneLogged$.next(decoded.role);
+      this._storeService$.emailOfPersonneLogged$.next(decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]);
+      this._storeService$.rolesOfPersonneLogged$.next(decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
       this.route.navigateByUrl('');
     });
     this.scrollTo('GestPharma');

@@ -29,6 +29,7 @@ import { PersonnesModule } from './personnes/personnes.module';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { HomeComponent } from './home/home.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 
 

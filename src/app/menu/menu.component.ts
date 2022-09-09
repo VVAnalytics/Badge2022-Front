@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
 
   bodyText: string = "";
   _storeService$ = _storeService.getInstance();
-  cheminImage: any = "/assets/images/admin-settings-male.png";
+  cheminImage: any = "assets/images/admin-settings-male.png";
   tokens = TkStorage.getInstance();
 
   constructor(private modalService: ModalService,
@@ -60,7 +60,7 @@ export class MenuComponent implements OnInit {
               this._storeService$.menuOption7$.next("");
               this._storeService$.menuOption8$.next("");
               this._storeService$.menuOption9$.next("");
-              this.cheminImage = "/assets/images/_admin.png";
+              this.cheminImage = "assets/images/_admin.png";
               break;
             }
             case "Professeurs": {
@@ -73,7 +73,7 @@ export class MenuComponent implements OnInit {
               this._storeService$.menuOption7$.next("");
               this._storeService$.menuOption8$.next("");
               this._storeService$.menuOption9$.next("");
-              this.cheminImage = "/assets/images/_patient.jpg";
+              this.cheminImage = "assets/images/_patient.jpg";
               break;
             }
             case "Eleves": {
@@ -86,7 +86,7 @@ export class MenuComponent implements OnInit {
               this._storeService$.menuOption7$.next("");
               this._storeService$.menuOption8$.next("");
               this._storeService$.menuOption9$.next("");
-              this.cheminImage = "/assets/images/_praticien.png";
+              this.cheminImage = "assets/images/_praticien.png";
               break;
             }
             default: {
@@ -99,7 +99,7 @@ export class MenuComponent implements OnInit {
               this._storeService$.menuOption7$.next("");
               this._storeService$.menuOption8$.next("");
               this._storeService$.menuOption9$.next("");
-              this.cheminImage = "/assets/images/_someone.png";
+              this.cheminImage = "assets/images/_someone.png";
               break;
             }
           }
