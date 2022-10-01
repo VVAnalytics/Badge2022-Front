@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import _storeService from '../Services/_store.service';
+import _storeService from '../services/_store.service';
 import { ModalService } from '../_modal';
 
 @Component({

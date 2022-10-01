@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Personnes } from '../Models/Personnes';
-import { Tokens } from '../Models/Tokens';
+import { Personnes } from '../models/Personnes';
+import { Tokens } from '../models/Tokens';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import TkStorage from './storageHelper';
-import { DecodedToken } from '../Models/DecodedToken';
+import { DecodedToken } from '../models/DecodedToken';
 import jwtDecode from 'jwt-decode';
 import _storeService from './_store.service';
 import * as forge from 'node-forge';
-import { Users } from '../Models/Users';
+import { Users } from '../models/Users';
 
 @Injectable({
   providedIn: 'root'

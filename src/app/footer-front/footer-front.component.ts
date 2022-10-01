@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonnesService } from '../Services/personnes.service';
+import { PersonnesService } from '../services/personnes.service';
 import { KeyValuePipe } from '@angular/common';
-import TkStorage from '../Services/storageHelper';
+import TkStorage from '../services/storageHelper';
 import { ModalService } from '../_modal';
 import jwtDecode from 'jwt-decode';
-import { DecodedToken } from '../Models/DecodedToken';
-import   _storeService  from '../Services/_store.service';
+import { DecodedToken } from '../models/DecodedToken';
+import   _storeService  from '../services/_store.service';
 import { Router } from '@angular/router';
 
 @Component({

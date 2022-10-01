@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { ModalService } from '../../_modal';
-import _storeService from '../../Services/_store.service';
+import _storeService from '../../services/_store.service';
 import { MedicamentsService } from 'src/app/Services/medicaments.service';
 import { IMedicaments } from 'src/app/Models/IMedicaments';
 import { BehaviorSubject, map, Observable } from 'rxjs';

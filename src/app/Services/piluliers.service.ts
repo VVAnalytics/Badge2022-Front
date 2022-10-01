@@ -3,8 +3,8 @@ import { environment } from '../../environments/environment';
 import { Piluliers } from '../Models/Piluliers';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import TkStorage from './storageHelper';
-import { PersonnesService } from './personnes.service';
+import TkStorage from '../services/storageHelper';
+import { PersonnesService } from '../services/personnes.service';
 
 @Pipe({
   name: 'KeyValuePipe'

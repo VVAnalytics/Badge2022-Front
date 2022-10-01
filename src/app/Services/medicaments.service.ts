@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Medicaments } from '../Models/Medicaments';
 import { Observable } from 'rxjs';
-import TkStorage from './storageHelper';
+import TkStorage from '../services/storageHelper';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
