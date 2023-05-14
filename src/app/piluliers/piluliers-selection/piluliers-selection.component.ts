@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { ModalService } from '../../_modal';
-import _storeService from '../../Services/_store.service';
+import _storeService from '../../services/_store.service';
 import { PiluliersService } from 'src/app/Services/piluliers.service';
 import { IPiluliers } from 'src/app/Models/IPiluliers';
 import { IOrdonnances } from 'src/app/Models/IOrdonnances';

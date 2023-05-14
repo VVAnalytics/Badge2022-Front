@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import _storeService from './Services/_store.service';
+import _storeService from './services/_store.service';
 import { ModalService } from './_modal';
 
 @Component({

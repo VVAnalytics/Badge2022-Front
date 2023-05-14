@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import jwtDecode from 'jwt-decode';
-import { DecodedToken } from '../Models/DecodedToken';
-import { PersonnesService } from '../Services/personnes.service';
-import TkStorage from '../Services/storageHelper';
-import _storeService from '../Services/_store.service';
+import { DecodedToken } from '../models/DecodedToken';
+import { PersonnesService } from '../services/personnes.service';
+import TkStorage from '../services/storageHelper';
+import _storeService from '../services/_store.service';
 import { ModalService } from '../_modal';
 
 @Component({

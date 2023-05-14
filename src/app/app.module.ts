@@ -17,7 +17,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatCardModule } from '@angular/material/card';
-import { TokenInterceptorInterceptor } from './Services/token-interceptor.interceptor';
+import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 import { ModalModule } from './_modal';
 import { MedecinsModule } from './medecins/medecins.module';
 import { PharmaciensModule } from './pharmaciens/pharmaciens.module';
